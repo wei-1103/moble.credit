@@ -931,5 +931,11 @@ a {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #7baeff;
+  background: #6f7c91;
+}
+.fab-menu-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
 }
