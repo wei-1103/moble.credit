@@ -448,7 +448,12 @@ document.querySelectorAll("#iphoneMenu a").forEach(link => {
   });
 });
 
-
+document.querySelectorAll("#iphoneMenu a").forEach(link => {
+  link.addEventListener("click", () => {
+    iphoneMenu.classList.remove("show");
+    menuBackdrop.classList.remove("show");
+  });
+});
 
 function initDashboard() {
   renderOverview();
