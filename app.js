@@ -408,20 +408,52 @@ nameInput.addEventListener("keypress", (e) => {
   }
 });
 
-const menuBtn = document.getElementById("menuToggle");
+const menuToggle = document.getElementById("menuToggle");
 const mobileMenu = document.getElementById("mobileMenu");
+const menuBackdrop = document.getElementById("menuBackdrop");
 
-// 開關選單
-menuBtn.addEventListener("click", () => {
-  mobileMenu.classList.toggle("hidden");
-});
-
-// 點外面關閉
-document.addEventListener("click", (e) => {
-  if (!mobileMenu.contains(e.target) && e.target !== menuBtn) {
-    mobileMenu.classList.add("hidden");
+if (menuToggle && mobileMenu && menuBackdrop) {
+  function openMenu() {
+    mobileMenu.classList.remove("hidden");
+    menuBackdrop.classList.remove("hidden");
+    menuToggle.classList.add("is-open");
   }
-});
+
+  function closeMenu() {
+    mobileMenu.classList.add("hidden");
+    menuBackdrop.classList.add("hidden");
+    menuToggle.classList.remove("is-open");
+  }
+
+  function toggleMenu() {
+    const isHidden = mobileMenu.classList.contains("hidden");
+    if (isHidden) {
+      openMenu();
+    } else {
+      closeMenu();
+    }
+  }
+
+  menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  menuBackdrop.addEventListener("click", closeMenu);
+
+  document.addEventListener("click", (e) => {
+    const clickedInsideMenu = mobileMenu.contains(e.target);
+    const clickedToggle = menuToggle.contains(e.target);
+
+    if (!clickedInsideMenu && !clickedToggle) {
+      closeMenu();
+    }
+  });
+
+  mobileMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+}
 function initDashboard() {
   renderOverview();
   renderCredits();

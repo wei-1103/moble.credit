@@ -761,82 +761,146 @@ a {
 .hidden {
   display: none;
 }
-
-/* 三點按鈕 */
-.menu-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.9);
-  border: 1px solid var(--line);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  font-size: 26px;
-  z-index: 1000;
+.hidden {
+  display: none !important;
 }
 
-/* 選單 */
-.mobile-menu {
+/* 右上角那顆隱藏 */
+.circle-btn {
+  display: none !important;
+}
+
+/* iPhone風格浮動按鈕 */
+.fab-menu-btn {
   position: fixed;
-  right: 20px;
-  bottom: 90px;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 10px 30px rgba(17, 24, 39, 0.12),
+    0 2px 8px rgba(17, 24, 39, 0.06);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  z-index: 1200;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.fab-menu-btn:hover {
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow:
+    0 16px 36px rgba(17, 24, 39, 0.16),
+    0 4px 12px rgba(17, 24, 39, 0.08);
+}
+
+.fab-menu-btn span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6f7c91;
+  display: block;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* 開啟時按鈕微變形 */
+.fab-menu-btn.is-open span:nth-child(1) {
+  transform: translateY(-1px);
+}
+.fab-menu-btn.is-open span:nth-child(2) {
+  opacity: 0.65;
+}
+.fab-menu-btn.is-open span:nth-child(3) {
+  transform: translateY(1px);
+}
+
+/* 模糊背景 */
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 28, 40, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 1100;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+/* iPhone風格浮動選單 */
+.iphone-menu {
+  position: fixed;
+  left: 50%;
+  bottom: 98px;
+  transform: translateX(-50%) translateY(0) scale(1);
+  width: min(82vw, 280px);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background: rgba(255,255,255,0.95);
-  padding: 14px;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-  z-index: 999;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 24px 60px rgba(17, 24, 39, 0.16),
+    0 8px 24px rgba(17, 24, 39, 0.08);
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  z-index: 1150;
+  opacity: 1;
+  transform-origin: bottom center;
+  animation: iphoneMenuIn 0.24s ease;
 }
 
-/* 選單按鈕 */
-.mobile-menu a {
-  padding: 10px 14px;
-  border-radius: 12px;
+.iphone-menu a {
+  padding: 12px 14px;
+  border-radius: 16px;
   color: var(--text);
-  font-size: 14px;
+  font-size: 15px;
+  transition: background 0.18s ease, transform 0.18s ease;
 }
 
-.mobile-menu a:hover {
-  background: rgba(0,0,0,0.05);
+.iphone-menu a:hover,
+.iphone-menu a:active {
+  background: rgba(68, 81, 104, 0.08);
+  transform: translateY(-1px);
 }
 
-/* 隱藏 */
-.hidden {
-  display: none;
-}
-
-/* 只在手機顯示 */
-@media (min-width: 768px) {
-  .menu-btn,
-  .mobile-menu {
-    display: none;
+@keyframes iphoneMenuIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
   }
 }
-.circle-btn {
-  display: none;
-}
-.menu-btn {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
 
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.9);
-  border: 1px solid var(--line);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  font-size: 26px;
-  z-index: 1000;
+/* 主內容底部要留空間 */
+.main {
+  padding-bottom: 140px;
 }
-.mobile-menu {
-  position: fixed;
-  bottom: 90px;
-  left: 50%;
-  transform: translateX(-50%);
+
+/* 手機才顯示 */
+@media (min-width: 768px) {
+  .fab-menu-btn,
+  .iphone-menu,
+  .menu-backdrop {
+    display: none !important;
+  }
+}
+
+/* 舊底部導覽直接隱藏 */
+.mobile-nav {
+  display: none !important;
 }

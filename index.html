@@ -46,7 +46,7 @@
 </div>
           <p class="sub-text">目前畢業進度 <span id="overallPercentText">67%</span></p>
         </div>
-        <button class="circle-btn" aria-label="設定">⋯</button>
+        
       </header>
 
       <!-- Hero -->
@@ -167,11 +167,18 @@
       <!-- Desktop split extra -->
  
       <!-- Mobile nav -->
-     <!-- 三點按鈕 -->
-<button id="menuToggle" class="menu-btn">⋯</button>
+ <!-- iPhone風格浮動按鈕 -->
+<button id="menuToggle" class="fab-menu-btn" aria-label="開啟選單">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
-<!-- 手機選單 -->
-<nav id="mobileMenu" class="mobile-menu hidden">
+<!-- 模糊背景 -->
+<div id="menuBackdrop" class="menu-backdrop hidden"></div>
+
+<!-- 浮動選單 -->
+<nav id="mobileMenu" class="iphone-menu hidden">
   <a href="index.html">首頁</a>
   <a href="credits.html">學分系統</a>
   <a href="requirement.html">畢業門檻</a>
