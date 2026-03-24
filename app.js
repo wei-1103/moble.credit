@@ -408,49 +408,52 @@ nameInput.addEventListener("keypress", (e) => {
   }
 });
 
+const menuToggle = document.getElementById("menuToggle");
+const mobileMenu = document.getElementById("mobileMenu");
+const menuBackdrop = document.getElementById("menuBackdrop");
 
-  const fabMenuBtn = document.getElementById("fabMenuBtn");
-  const iphoneMenu = document.getElementById("iphoneMenu");
-  const menuBackdrop = document.getElementById("menuBackdrop");
-
+if (menuToggle && mobileMenu && menuBackdrop) {
   function openMenu() {
-    fabMenuBtn.classList.add("is-open");
-    iphoneMenu.classList.add("show");
-    menuBackdrop.classList.add("show");
-    fabMenuBtn.setAttribute("aria-expanded", "true");
+    mobileMenu.classList.remove("hidden");
+    menuBackdrop.classList.remove("hidden");
+    menuToggle.classList.add("is-open");
   }
 
   function closeMenu() {
-    fabMenuBtn.classList.remove("is-open");
-    iphoneMenu.classList.remove("show");
-    menuBackdrop.classList.remove("show");
-    fabMenuBtn.setAttribute("aria-expanded", "false");
+    mobileMenu.classList.add("hidden");
+    menuBackdrop.classList.add("hidden");
+    menuToggle.classList.remove("is-open");
   }
 
   function toggleMenu() {
-    const isOpen = iphoneMenu.classList.contains("show");
-    if (isOpen) {
-      closeMenu();
-    } else {
+    const isHidden = mobileMenu.classList.contains("hidden");
+    if (isHidden) {
       openMenu();
+    } else {
+      closeMenu();
     }
   }
 
-  fabMenuBtn.addEventListener("click", toggleMenu);
+  menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
   menuBackdrop.addEventListener("click", closeMenu);
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
+  document.addEventListener("click", (e) => {
+    const clickedInsideMenu = mobileMenu.contains(e.target);
+    const clickedToggle = menuToggle.contains(e.target);
+
+    if (!clickedInsideMenu && !clickedToggle) {
       closeMenu();
     }
   });
 
-  window.addEventListener("resize", function () {
-    if (window.innerWidth >= 768) {
-      closeMenu();
-    }
+  mobileMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
   });
-
+}
 
 
 
