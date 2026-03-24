@@ -780,31 +780,29 @@ a {
   display: none !important;
 }
 
-/* 主內容底部留空間，避免被按鈕擋住 */
-.main {
-  padding-bottom: 120px;
+:root {
+  --text: #1f2937;
 }
 
-/* iPhone 風格浮動按鈕 */
+/* 右上角三點按鈕 */
 .fab-menu-btn {
   position: fixed;
-  left: 50%;
-  bottom: 22px;
-  transform: translateX(-50%);
-  width: 62px;
-  height: 62px;
+  top: 84px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.95);
   box-shadow:
     0 10px 30px rgba(17, 24, 39, 0.12),
     0 2px 8px rgba(17, 24, 39, 0.06);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
   z-index: 1200;
   cursor: pointer;
   transition:
@@ -813,50 +811,34 @@ a {
     background 0.25s ease;
 }
 
-/* hover 也要保留置中 */
 .fab-menu-btn:hover {
-  transform: translateX(-50%) translateY(-2px);
-  box-shadow:
-    0 16px 36px rgba(17, 24, 39, 0.16),
-    0 4px 12px rgba(17, 24, 39, 0.08);
+  transform: translateY(-2px);
 }
 
 .fab-menu-btn:active {
-  transform: translateX(-50%) scale(0.96);
+  transform: scale(0.96);
 }
 
 .fab-menu-btn span {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #6f7c91;
   display: block;
-  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-/* 開啟時三個點微變形 */
-.fab-menu-btn.is-open span:nth-child(1) {
-  transform: translateY(-1px);
-}
-.fab-menu-btn.is-open span:nth-child(2) {
-  opacity: 0.65;
-}
-.fab-menu-btn.is-open span:nth-child(3) {
-  transform: translateY(1px);
-}
-
-/* 模糊背景 */
+/* 背景遮罩，改淡 */
 .menu-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(20, 28, 40, 0.14);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(20, 28, 40, 0.06);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 1100;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
 }
 
 .menu-backdrop.show {
@@ -865,60 +847,58 @@ a {
   pointer-events: auto;
 }
 
-/* iPhone 風格浮動選單 */
+/* 右上角展開選單 */
 .iphone-menu {
   position: fixed;
-  left: 50%;
-  bottom: 98px;
-  transform: translateX(-50%) translateY(16px) scale(0.96);
-
-  width: min(82vw, 280px);
-  max-height: calc(100vh - 140px); /* 重點：限制最大高度 */
+  top: 146px;
+  right: 20px;
+  width: 220px;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 12px;
+  gap: 4px;
+  padding: 10px;
 
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.84);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.96);
   box-shadow:
-    0 24px 60px rgba(17, 24, 39, 0.16),
-    0 8px 24px rgba(17, 24, 39, 0.08);
+    0 20px 50px rgba(17, 24, 39, 0.14),
+    0 6px 18px rgba(17, 24, 39, 0.08);
 
-  backdrop-filter: blur(26px);
-  -webkit-backdrop-filter: blur(26px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 
   z-index: 1150;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform-origin: bottom center;
-
-  overflow-y: auto;      /* 重點：太長可以滑 */
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+  transform: translateY(-8px) scale(0.98);
+  transform-origin: top right;
 
   transition:
-    opacity 0.24s ease,
-    transform 0.24s ease,
-    visibility 0.24s ease;
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0.22s ease;
 }
 
 .iphone-menu.show {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0) scale(1);
+  transform: translateY(0) scale(1);
 }
 
 .iphone-menu a {
   display: block;
   padding: 12px 14px;
-  border-radius: 16px;
+  border-radius: 14px;
   color: var(--text);
   font-size: 15px;
+  line-height: 1.25;
   text-decoration: none;
   transition: background 0.18s ease, transform 0.18s ease;
 }
@@ -928,51 +908,8 @@ a {
   background: rgba(68, 81, 104, 0.08);
   transform: translateY(-1px);
 }
-.iphone-menu a {
-  display: block;
-  padding: 12px 14px;
-  border-radius: 16px;
-  color: var(--text);
-  font-size: 15px;
-  text-decoration: none;
-  line-height: 1.4;
-  flex-shrink: 0;
-  transition: background 0.18s ease, transform 0.18s ease;
-}
-.iphone-menu {
-  position: fixed;
-  left: 50%;
-  bottom: 98px;
-  transform: translateX(-50%) translateY(16px) scale(0.96);
-  width: min(82vw, 280px);
-  max-height: min(420px, calc(100vh - 140px));
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 12px;
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.84);
-  border: 1px solid rgba(255, 255, 255, 0.96);
-  box-shadow:
-    0 24px 60px rgba(17, 24, 39, 0.16),
-    0 8px 24px rgba(17, 24, 39, 0.08);
-  backdrop-filter: blur(26px);
-  -webkit-backdrop-filter: blur(26px);
-  z-index: 1150;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform-origin: bottom center;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  transition:
-    opacity 0.24s ease,
-    transform 0.24s ease,
-    visibility 0.24s ease;
-}
 
-/* 電腦版隱藏 */
+/* 桌機版不顯示 */
 @media (min-width: 768px) {
   .fab-menu-btn,
   .iphone-menu,
