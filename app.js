@@ -358,6 +358,55 @@ function renderOverviewText() {
   document.getElementById("overviewText").textContent = text;
 }
 
+
+const NAME_KEY = "user-name";
+
+const nameDisplay = document.getElementById("userNameDisplay");
+const nameInput = document.getElementById("nameInput");
+const editBtn = document.getElementById("editNameBtn");
+const saveBtn = document.getElementById("saveNameBtn");
+const editBox = document.getElementById("nameEditBox");
+
+// 載入名字
+function loadName() {
+  const savedName = localStorage.getItem(NAME_KEY);
+
+  if (savedName) {
+    nameDisplay.textContent = `你好，${savedName}`;
+  }
+}
+
+// 顯示輸入框
+editBtn.addEventListener("click", () => {
+  editBox.classList.remove("hidden");
+  nameInput.focus();
+});
+
+// 儲存名字
+saveBtn.addEventListener("click", () => {
+  const name = nameInput.value.trim();
+
+  if (!name) return;
+
+  localStorage.setItem(NAME_KEY, name);
+  nameDisplay.textContent = `你好，${name}`;
+
+  editBox.classList.add("hidden");
+  nameInput.value = "";
+});
+
+loadName();
+document.addEventListener("click", (e) => {
+  if (!editBox.contains(e.target) && e.target !== editBtn) {
+    editBox.classList.add("hidden");
+  }
+});
+
+nameInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    saveBtn.click();
+  }
+});
 function initDashboard() {
   renderOverview();
   renderCredits();

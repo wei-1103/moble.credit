@@ -726,3 +726,38 @@ a {
   overflow: hidden;
   z-index: 1000;
 }
+.name-edit {
+  margin-top: 10px;
+}
+
+.edit-btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.name-edit-box {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.name-edit-box input {
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  outline: none;
+}
+
+.name-edit-box button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: white;
+}
+
+.hidden {
+  display: none;
+}

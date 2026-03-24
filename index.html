@@ -34,7 +34,16 @@
       <header class="mobile-header">
         <div>
           <p class="term-text">114 學年度第 2 學期</p>
-          <h1>你好，王小明</h1>
+          <h1 id="userNameDisplay">你好，使用者</h1>
+
+<div class="name-edit">
+  <button id="editNameBtn" class="edit-btn">修改名字</button>
+
+  <div id="nameEditBox" class="name-edit-box hidden">
+    <input id="nameInput" placeholder="輸入你的名字" />
+    <button id="saveNameBtn">儲存</button>
+  </div>
+</div>
           <p class="sub-text">目前畢業進度 <span id="overallPercentText">67%</span></p>
         </div>
         <button class="circle-btn" aria-label="設定">⋯</button>
