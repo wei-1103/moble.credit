@@ -816,3 +816,27 @@ a {
     display: none;
   }
 }
+.circle-btn {
+  display: none;
+}
+.menu-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  font-size: 26px;
+  z-index: 1000;
+}
+.mobile-menu {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+}
