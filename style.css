@@ -534,251 +534,14 @@ a {
   line-height: 1.8;
 }
 
-.mobile-nav {
-  position: fixed;
-  left: 16px;
-  right: 16px;
-  bottom: 16px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  background: rgba(255,255,255,0.9);
-  border: 1px solid rgba(255,255,255,0.96);
-  border-radius: 22px;
-  box-shadow: 0 18px 32px rgba(18, 24, 38, 0.08);
-  backdrop-filter: blur(20px);
-  overflow: hidden;
-}
-
-.mobile-nav a {
-  text-align: center;
-  padding: 14px 8px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.mobile-nav a.active {
-  color: var(--text);
-  font-weight: 700;
-}
-
-@media (min-width: 768px) {
-  .main {
-    padding: 28px 24px 40px;
-  }
-
-  .mobile-header {
-    align-items: end;
-  }
-
-  .mobile-header h1 {
-    font-size: 42px;
-  }
-
-  .hero-top {
-    grid-template-columns: 1fr 240px;
-    align-items: end;
-  }
-
-  .summary-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .requirement-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .mobile-nav {
-    display: none;
-  }
-}
-
-@media (min-width: 1180px) {
-  .app-layout {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-  }
-
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    padding: 28px 20px;
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    border-right: 1px solid rgba(28, 36, 51, 0.06);
-    background: rgba(255,255,255,0.54);
-    backdrop-filter: blur(18px);
-  }
-
-  .sidebar-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .sidebar-brand__dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, #6c7c98, #c5cfdb);
-  }
-
-  .sidebar-brand__sub {
-    margin: 0 0 4px;
-    color: var(--muted);
-    font-size: 12px;
-    letter-spacing: 0.08em;
-  }
-
-  .sidebar-brand h2 {
-    margin: 0;
-    font-size: 24px;
-    letter-spacing: -0.04em;
-  }
-
-  .sidebar-nav {
-    display: grid;
-    gap: 8px;
-  }
-
-  .sidebar-nav a {
-    padding: 12px 14px;
-    border-radius: 16px;
-    color: var(--muted);
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-
-  .sidebar-nav a:hover,
-  .sidebar-nav a.active {
-    background: rgba(255,255,255,0.94);
-    color: var(--text);
-    box-shadow: 0 8px 20px rgba(18, 24, 38, 0.04);
-  }
-
-  .main {
-    padding: 32px;
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 18px 18px;
-    grid-template-areas:
-      "header header"
-      "hero hero"
-      "summary summary"
-      "credits requirements"
-      "alerts actions"
-      "extra extra";
-  }
-
-  .mobile-header {
-    grid-area: header;
-  }
-
-  .hero-card {
-    grid-area: hero;
-    margin-bottom: 0;
-  }
-
-  .summary-grid {
-    grid-area: summary;
-    margin-bottom: 0;
-  }
-
-  .section-block:nth-of-type(1) {
-    grid-area: credits;
-    margin-bottom: 0;
-  }
-
-  .section-block:nth-of-type(2) {
-    grid-area: requirements;
-    margin-bottom: 0;
-  }
-
-  .section-block:nth-of-type(3) {
-    grid-area: alerts;
-    margin-bottom: 0;
-  }
-
-  .section-block:nth-of-type(4) {
-    grid-area: actions;
-    margin-bottom: 0;
-  }
-
-  .desktop-extra {
-    grid-area: extra;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
-}
-.mobile-nav {
-  position: fixed;
-  left: 16px;
-  right: 16px;
-  bottom: 16px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.82);
-  border-radius: 22px;
-  box-shadow: 0 18px 32px rgba(23, 31, 48, 0.08);
-  backdrop-filter: blur(20px);
-  overflow: hidden;
-  z-index: 1000;
-}
-.name-edit {
-  margin-top: 10px;
-}
-
-.edit-btn {
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.8);
-  border: 1px solid var(--line);
-  font-size: 13px;
-}
-
-.name-edit-box {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.name-edit-box input {
-  padding: 10px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  outline: none;
-}
-
-.name-edit-box button {
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: var(--primary);
-  color: white;
-}
-
-.hidden {
-  display: none;
-}
-.hidden {
-  display: none !important;
-}
-
-/* 右上角那顆隱藏 */
+/* 右上角原本那顆隱藏 */
 .circle-btn {
   display: none !important;
 }
 
-:root {
-  --text: #1f2937;
-  --line: rgba(148, 163, 184, 0.25);
-}
-
-
-
-:root {
-  --text: #1f2937;
+/* 手機底部舊導覽隱藏 */
+.mobile-nav {
+  display: none !important;
 }
 
 /* 右上角三點按鈕 */
@@ -789,31 +552,18 @@ a {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.95);
   box-shadow:
     0 10px 30px rgba(17, 24, 39, 0.12),
     0 2px 8px rgba(17, 24, 39, 0.06);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   z-index: 1200;
   cursor: pointer;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
-}
-
-.fab-menu-btn:hover {
-  transform: translateY(-2px);
-}
-
-.fab-menu-btn:active {
-  transform: scale(0.96);
+  padding: 0;
 }
 
 .fab-menu-btn span {
@@ -824,13 +574,11 @@ a {
   display: block;
 }
 
-/* 背景遮罩，改淡 */
+/* 背景 */
 .menu-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(20, 28, 40, 0.06);
-  /* backdrop-filter: blur(4px); */
-  /*-webkit-backdrop-filter: blur(4px);*/
+  background: rgba(20, 28, 40, 0.04);
   z-index: 1100;
   opacity: 0;
   visibility: hidden;
@@ -843,11 +591,6 @@ a {
   visibility: visible;
   pointer-events: auto;
 }
-.menu-backdrop {
-  background: rgba(0,0,0,0.05);
-  backdrop-filter: none;   /* 🔥 關掉模糊 */
-  -webkit-backdrop-filter: none;
-}
 
 /* 右上角展開選單 */
 .iphone-menu {
@@ -858,29 +601,22 @@ a {
   max-height: 50vh;
   overflow-y: auto;
   overflow-x: hidden;
-
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 10px;
-
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.96);
   box-shadow:
     0 20px 50px rgba(17, 24, 39, 0.14),
     0 6px 18px rgba(17, 24, 39, 0.08);
-
-  /*backdrop-filter: blur(20px);*/
-  /*webkit-backdrop-filter: blur(20px);*/
-
   z-index: 1150;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(-8px) scale(0.98);
   transform-origin: top right;
-
   transition:
     opacity 0.22s ease,
     transform 0.22s ease,
@@ -902,13 +638,11 @@ a {
   font-size: 15px;
   line-height: 1.25;
   text-decoration: none;
-  transition: background 0.18s ease, transform 0.18s ease;
 }
 
 .iphone-menu a:hover,
 .iphone-menu a:active {
   background: rgba(68, 81, 104, 0.08);
-  transform: translateY(-1px);
 }
 
 /* 桌機版不顯示 */
@@ -918,36 +652,4 @@ a {
   .menu-backdrop {
     display: none !important;
   }
-}
-.iphone-menu {
-  position: fixed;
-  top: 146px;
-  right: 20px;
-  z-index: 1150;
-  pointer-events: none;
-}
-
-.iphone-menu.show {
-  pointer-events: auto;
-}
-
-.iphone-menu a {
-  position: relative;
-  z-index: 1160;
-  pointer-events: auto;
-}
-.menu-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(20, 28, 40, 0.04);
-  z-index: 1100;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.menu-backdrop.show {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
 }

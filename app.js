@@ -1,5 +1,4 @@
 const CREDIT_STORAGE_KEY = "credit-system-data-v1";
-
 const REQUIREMENT_STORAGE_KEY = "graduation-requirements-v1";
 const SCHEDULE_STORAGE_KEY = "schedule-data-v1";
 const SELECTED_COURSE_STORAGE_KEY = "course-selection-selected-v1";
@@ -91,6 +90,16 @@ function getTodoData() {
   return loadData(TODO_STORAGE_KEY, []);
 }
 
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function setWidth(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.style.width = value;
+}
+
 function renderOverview() {
   const courses = getCreditData();
   const passedCourses = courses.filter(course => course.status === "已通過");
@@ -99,12 +108,12 @@ function renderOverview() {
   const remainingCredits = Math.max(totalCredits - earnedCredits, 0);
   const percent = calcPercent(earnedCredits, totalCredits);
 
-  document.getElementById("earnedCredits").textContent = earnedCredits;
-  document.getElementById("totalCredits").textContent = totalCredits;
-  document.getElementById("remainingCredits").textContent = remainingCredits;
-  document.getElementById("overallPercent").textContent = `${percent}%`;
-  document.getElementById("overallPercentText").textContent = `${percent}%`;
-  document.getElementById("overallProgressBar").style.width = `${percent}%`;
+  setText("earnedCredits", earnedCredits);
+  setText("totalCredits", totalCredits);
+  setText("remainingCredits", remainingCredits);
+  setText("overallPercent", `${percent}%`);
+  setText("overallPercentText", `${percent}%`);
+  setWidth("overallProgressBar", `${percent}%`);
 }
 
 function getCategoryFillClass(category) {
@@ -131,6 +140,8 @@ function getCategoryBadgeClass(category) {
 
 function renderCredits() {
   const creditList = document.getElementById("creditList");
+  if (!creditList) return;
+
   const courses = getCreditData();
   const passedCourses = courses.filter(course => course.status === "已通過");
 
@@ -149,17 +160,14 @@ function renderCredits() {
             <h3 class="credit-item__name">${category}</h3>
             <p class="credit-item__note">尚缺 ${remaining} 學分</p>
           </div>
-
           <div class="credit-item__value">
             <strong>${earned} / ${total}</strong>
             <span>學分</span>
           </div>
         </div>
-
         <div class="progress">
           <div class="progress__fill ${getCategoryFillClass(category)}" style="width:${percent}%"></div>
         </div>
-
         <div class="credit-item__bottom">
           <span>完成進度</span>
           <span class="badge ${getCategoryBadgeClass(category)}">${percent}%</span>
@@ -171,6 +179,8 @@ function renderCredits() {
 
 function renderRequirements() {
   const requirementGrid = document.getElementById("requirementGrid");
+  if (!requirementGrid) return;
+
   const req = getRequirementData();
 
   const items = [
@@ -233,8 +243,9 @@ function getConflictPairs(selectedCourses) {
 
 function renderAlerts() {
   const alertList = document.getElementById("alertList");
-  const alerts = [];
+  if (!alertList) return;
 
+  const alerts = [];
   const creditCourses = getCreditData();
   const passedCourses = creditCourses.filter(course => course.status === "已通過");
   const failedCourses = creditCourses.filter(course => course.status === "未通過");
@@ -246,18 +257,11 @@ function renderAlerts() {
       .reduce((sum, course) => sum + Number(course.credits), 0);
 
     const remaining = Math.max(target - earned, 0);
-    if (remaining > 0) {
-      alerts.push(`${category}尚缺 ${remaining} 學分。`);
-    }
+    if (remaining > 0) alerts.push(`${category}尚缺 ${remaining} 學分。`);
   }
 
-  if (failedCourses.length > 0) {
-    alerts.push(`目前有 ${failedCourses.length} 門課未通過，建議優先安排補修。`);
-  }
-
-  if (ongoingCourses.length > 0) {
-    alerts.push(`目前有 ${ongoingCourses.length} 門課正在修習，尚未列入正式畢業學分。`);
-  }
+  if (failedCourses.length > 0) alerts.push(`目前有 ${failedCourses.length} 門課未通過，建議優先安排補修。`);
+  if (ongoingCourses.length > 0) alerts.push(`目前有 ${ongoingCourses.length} 門課正在修習，尚未列入正式畢業學分。`);
 
   const req = getRequirementData();
   if (!req.english.done) alerts.push("英文能力門檻尚未完成。");
@@ -267,202 +271,114 @@ function renderAlerts() {
 
   const selectedCourses = getSelectedCourses();
   const selectedCredits = selectedCourses.reduce((sum, course) => sum + Number(course.credits), 0);
-  if (selectedCourses.length > 0) {
-    alerts.push(`目前選課清單共有 ${selectedCourses.length} 門，合計 ${selectedCredits} 學分。`);
-  }
+  if (selectedCourses.length > 0) alerts.push(`目前選課清單共有 ${selectedCourses.length} 門，合計 ${selectedCredits} 學分。`);
 
   const conflicts = getConflictPairs(selectedCourses);
-  if (conflicts.length > 0) {
-    alerts.push(`目前選課清單有 ${conflicts.length} 組衝堂。`);
-  }
+  if (conflicts.length > 0) alerts.push(`目前選課清單有 ${conflicts.length} 組衝堂。`);
 
   const todaySchedule = getScheduleData().filter(item => item.day === getTodayLabel());
-  if (todaySchedule.length > 0) {
-    alerts.push(`今天有 ${todaySchedule.length} 堂課。`);
-  }
+  if (todaySchedule.length > 0) alerts.push(`今天有 ${todaySchedule.length} 堂課。`);
 
   const todoData = getTodoData();
   const pendingTodos = todoData.filter(item => item.status === "未完成");
-  if (pendingTodos.length > 0) {
-    alerts.push(`目前尚有 ${pendingTodos.length} 項待辦事項。`);
-  }
+  if (pendingTodos.length > 0) alerts.push(`目前尚有 ${pendingTodos.length} 項待辦事項。`);
 
-  if (alerts.length === 0) {
-    alerts.push("目前沒有需要特別提醒的項目。");
-  }
+  if (alerts.length === 0) alerts.push("目前沒有需要特別提醒的項目。");
 
   alertList.innerHTML = alerts.map(item => `<li>${escapeHtml(item)}</li>`).join("");
 }
 
-function renderSemesterSummary() {
-  const ongoingCount = getCreditData().filter(course => course.status === "正在修").length;
-  const selectedCourses = getSelectedCourses();
-  const selectedCredits = selectedCourses.reduce((sum, c) => sum + Number(c.credits), 0);
-
-  const passedCourses = getCreditData().filter(course => course.status === "已通過");
-  const categoryRemaining = Object.entries(categoryTargets).map(([category, target]) => {
-    const earned = passedCourses
-      .filter(course => course.category === category)
-      .reduce((sum, course) => sum + Number(course.credits), 0);
-
-    return {
-      category,
-      remaining: Math.max(target - earned, 0)
-    };
-  }).sort((a, b) => b.remaining - a.remaining);
-
-  document.getElementById("miniOngoingCount").textContent = `${ongoingCount} 門`;
-  document.getElementById("miniSelectedCredits").textContent = `${selectedCredits} 學分`;
-  document.getElementById("miniPriorityCategory").textContent = categoryRemaining[0]?.category || "無";
-}
-
-function renderSummaryCards() {
-  const selectedCourses = getSelectedCourses();
-  const selectedCredits = selectedCourses.reduce((sum, c) => sum + Number(c.credits), 0);
-
-  const req = getRequirementData();
-  const doneCount =
-    Number(req.english.done) +
-    Number(req.cpe.done) +
-    Number(req.hours.done) +
-    Number(req.license.done);
-
-  document.getElementById("summarySelectedCredits").textContent = `${selectedCredits} 學分`;
-  document.getElementById("summarySelectedCount").textContent = `共 ${selectedCourses.length} 門課程`;
-  document.getElementById("summaryRequirementDone").textContent = `${doneCount} / 4`;
-  document.getElementById("summaryRequirementText").textContent =
-    doneCount === 4 ? "皆已完成" : "仍有項目待完成";
-}
-
-function renderOverviewText() {
-  const todoData = getTodoData();
-  const pendingTodos = todoData.filter(item => item.status === "未完成").length;
-
-  const req = getRequirementData();
-  const reqDone =
-    Number(req.english.done) +
-    Number(req.cpe.done) +
-    Number(req.hours.done) +
-    Number(req.license.done);
-
-  let text = "目前整體進度穩定。";
-
-  if (reqDone < 4) {
-    text += " 建議優先完成尚未達成的畢業門檻。";
-  }
-
-  if (pendingTodos > 0) {
-    text += ` 另外目前還有 ${pendingTodos} 項待辦事項需要安排。`;
-  }
-
-  document.getElementById("overviewText").textContent = text;
-}
-
-
 const NAME_KEY = "user-name";
-
 const nameDisplay = document.getElementById("userNameDisplay");
 const nameInput = document.getElementById("nameInput");
 const editBtn = document.getElementById("editNameBtn");
 const saveBtn = document.getElementById("saveNameBtn");
 const editBox = document.getElementById("nameEditBox");
 
-// 載入名字
 function loadName() {
   const savedName = localStorage.getItem(NAME_KEY);
-
-  if (savedName) {
+  if (savedName && nameDisplay) {
     nameDisplay.textContent = `你好，${savedName}`;
   }
 }
 
-// 顯示輸入框
-editBtn.addEventListener("click", () => {
-  editBox.classList.remove("hidden");
-  nameInput.focus();
-});
+if (editBtn && editBox && nameInput) {
+  editBtn.addEventListener("click", () => {
+    editBox.classList.remove("hidden");
+    nameInput.focus();
+  });
+}
 
-// 儲存名字
-saveBtn.addEventListener("click", () => {
-  const name = nameInput.value.trim();
+if (saveBtn && editBox && nameInput && nameDisplay) {
+  saveBtn.addEventListener("click", () => {
+    const name = nameInput.value.trim();
+    if (!name) return;
 
-  if (!name) return;
-
-  localStorage.setItem(NAME_KEY, name);
-  nameDisplay.textContent = `你好，${name}`;
-
-  editBox.classList.add("hidden");
-  nameInput.value = "";
-});
+    localStorage.setItem(NAME_KEY, name);
+    nameDisplay.textContent = `你好，${name}`;
+    editBox.classList.add("hidden");
+    nameInput.value = "";
+  });
+}
 
 loadName();
-document.addEventListener("click", (e) => {
-  if (!editBox.contains(e.target) && e.target !== editBtn) {
-    editBox.classList.add("hidden");
-  }
-});
 
-nameInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    saveBtn.click();
-  }
-});
+if (editBox && editBtn) {
+  document.addEventListener("click", (e) => {
+    if (!editBox.contains(e.target) && e.target !== editBtn) {
+      editBox.classList.add("hidden");
+    }
+  });
+}
 
+if (nameInput && saveBtn) {
+  nameInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      saveBtn.click();
+    }
+  });
+}
 
- const fabMenuBtn = document.getElementById("fabMenuBtn");
+const fabMenuBtn = document.getElementById("fabMenuBtn");
 const iphoneMenu = document.getElementById("iphoneMenu");
 const menuBackdrop = document.getElementById("menuBackdrop");
 
-function openMenu() {
-  iphoneMenu.classList.add("show");
-  menuBackdrop.classList.add("show");
-  fabMenuBtn.setAttribute("aria-expanded", "true");
-}
-
-function closeMenu() {
-  iphoneMenu.classList.remove("show");
-  menuBackdrop.classList.remove("show");
-  fabMenuBtn.setAttribute("aria-expanded", "false");
-}
-
-function toggleMenu(e) {
-  e.stopPropagation();
-  if (iphoneMenu.classList.contains("show")) {
-    closeMenu();
-  } else {
-    openMenu();
+if (fabMenuBtn && iphoneMenu && menuBackdrop) {
+  function openMenu() {
+    iphoneMenu.classList.add("show");
+    menuBackdrop.classList.add("show");
+    fabMenuBtn.setAttribute("aria-expanded", "true");
   }
-}
 
-fabMenuBtn.addEventListener("click", toggleMenu);
-
-menuBackdrop.addEventListener("click", closeMenu);
-
-iphoneMenu.addEventListener("click", (e) => {
-  e.stopPropagation();
-});
-
-document.querySelectorAll("#iphoneMenu a").forEach(link => {
-  link.addEventListener("click", () => {
-    closeMenu();
-  });
-});
-
-document.querySelectorAll("#iphoneMenu a").forEach(link => {
-  link.addEventListener("click", () => {
+  function closeMenu() {
     iphoneMenu.classList.remove("show");
     menuBackdrop.classList.remove("show");
+    fabMenuBtn.setAttribute("aria-expanded", "false");
+  }
+
+  function toggleMenu(e) {
+    e.stopPropagation();
+    if (iphoneMenu.classList.contains("show")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  fabMenuBtn.addEventListener("click", toggleMenu);
+  menuBackdrop.addEventListener("click", closeMenu);
+  iphoneMenu.addEventListener("click", (e) => e.stopPropagation());
+
+  document.querySelectorAll("#iphoneMenu a").forEach(link => {
+    link.addEventListener("click", closeMenu);
   });
-});
+}
 
 function initDashboard() {
   renderOverview();
   renderCredits();
   renderRequirements();
   renderAlerts();
-  renderSemesterSummary();
-  renderSummaryCards();
-  renderOverviewText();
 }
 
 initDashboard();
