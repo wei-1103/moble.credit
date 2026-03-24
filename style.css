@@ -912,10 +912,3 @@ a {
 }
 
 /* 桌機版不顯示 */
-@media (min-width: 768px) {
-  .fab-menu-btn,
-  .iphone-menu,
-  .menu-backdrop {
-    display: none !important;
-  }
-}
