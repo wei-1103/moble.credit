@@ -770,7 +770,22 @@ a {
   display: none !important;
 }
 
-/* iPhone風格浮動按鈕 */
+:root {
+  --text: #1f2937;
+  --line: rgba(148, 163, 184, 0.25);
+}
+
+/* 舊底部導覽隱藏 */
+.mobile-nav {
+  display: none !important;
+}
+
+/* 主內容底部留空間，避免被按鈕擋住 */
+.main {
+  padding-bottom: 120px;
+}
+
+/* iPhone 風格浮動按鈕 */
 .fab-menu-btn {
   position: fixed;
   left: 50%;
@@ -791,17 +806,23 @@ a {
   justify-content: center;
   gap: 5px;
   z-index: 1200;
+  cursor: pointer;
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
     background 0.25s ease;
 }
 
+/* hover 也要保留置中 */
 .fab-menu-btn:hover {
   transform: translateX(-50%) translateY(-2px);
   box-shadow:
     0 16px 36px rgba(17, 24, 39, 0.16),
     0 4px 12px rgba(17, 24, 39, 0.08);
+}
+
+.fab-menu-btn:active {
+  transform: translateX(-50%) scale(0.96);
 }
 
 .fab-menu-btn span {
@@ -813,7 +834,7 @@ a {
   transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-/* 開啟時按鈕微變形 */
+/* 開啟時三個點微變形 */
 .fab-menu-btn.is-open span:nth-child(1) {
   transform: translateY(-1px);
 }
@@ -832,16 +853,24 @@ a {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   z-index: 1100;
-  opacity: 1;
-  transition: opacity 0.25s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
-/* iPhone風格浮動選單 */
+.menu-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* iPhone 風格浮動選單 */
 .iphone-menu {
   position: fixed;
   left: 50%;
   bottom: 98px;
-  transform: translateX(-50%) translateY(0) scale(1);
+  transform: translateX(-50%) translateY(16px) scale(0.96);
   width: min(82vw, 280px);
   display: flex;
   flex-direction: column;
@@ -856,16 +885,30 @@ a {
   backdrop-filter: blur(26px);
   -webkit-backdrop-filter: blur(26px);
   z-index: 1150;
-  opacity: 1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transform-origin: bottom center;
-  animation: iphoneMenuIn 0.24s ease;
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease,
+    visibility 0.24s ease;
+}
+
+.iphone-menu.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
 }
 
 .iphone-menu a {
+  display: block;
   padding: 12px 14px;
   border-radius: 16px;
   color: var(--text);
   font-size: 15px;
+  text-decoration: none;
   transition: background 0.18s ease, transform 0.18s ease;
 }
 
@@ -875,55 +918,11 @@ a {
   transform: translateY(-1px);
 }
 
-@keyframes iphoneMenuIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(12px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-}
-
-/* 主內容底部要留空間 */
-.main {
-  padding-bottom: 140px;
-}
-
-/* 手機才顯示 */
+/* 電腦版隱藏 */
 @media (min-width: 768px) {
   .fab-menu-btn,
   .iphone-menu,
   .menu-backdrop {
     display: none !important;
   }
-}
-
-/* 舊底部導覽直接隱藏 */
-.mobile-nav {
-  display: none !important;
-}
-
-.fab-menu-btn {
-  position: fixed;
-
-  top: 20px;
-  right: 20px;   /* 👉 關鍵：靠右 */
-
-  width: 48px;
-  height: 48px;
-
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid var(--line);
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-
-  z-index: 9999;
 }

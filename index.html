@@ -168,17 +168,15 @@
  
       <!-- Mobile nav -->
  <!-- iPhone風格浮動按鈕 -->
-<button id="menuToggle" class="fab-menu-btn" aria-label="開啟選單">
+<button class="fab-menu-btn" id="fabMenuBtn" aria-label="開啟選單" aria-expanded="false">
   <span></span>
   <span></span>
   <span></span>
 </button>
 
-<!-- 模糊背景 -->
-<div id="menuBackdrop" class="menu-backdrop hidden"></div>
+<div class="menu-backdrop" id="menuBackdrop"></div>
 
-<!-- 浮動選單 -->
-<nav id="mobileMenu" class="iphone-menu hidden">
+<nav class="iphone-menu" id="iphoneMenu">
   <a href="index.html">首頁</a>
   <a href="credits.html">學分系統</a>
   <a href="requirement.html">畢業門檻</a>
@@ -187,7 +185,6 @@
   <a href="grades.html">成績</a>
   <a href="todo.html">待辦事項</a>
 </nav>
-
   <script src="app.js"></script>
 </body>
 <button id="menuToggle" class="fab-menu-btn">
