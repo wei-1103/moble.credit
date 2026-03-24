@@ -407,6 +407,21 @@ nameInput.addEventListener("keypress", (e) => {
     saveBtn.click();
   }
 });
+
+const menuBtn = document.getElementById("menuToggle");
+const mobileMenu = document.getElementById("mobileMenu");
+
+// 開關選單
+menuBtn.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
+});
+
+// 點外面關閉
+document.addEventListener("click", (e) => {
+  if (!mobileMenu.contains(e.target) && e.target !== menuBtn) {
+    mobileMenu.classList.add("hidden");
+  }
+});
 function initDashboard() {
   renderOverview();
   renderCredits();
