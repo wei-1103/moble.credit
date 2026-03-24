@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>選課</title>
+  <link rel="stylesheet" href="course-selection.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Course Selection</p>
+        <h1>選課系統</h1>
+        <p class="subtitle">查看可選課程、加入選課清單，並檢查學分與衝堂狀況。</p>
+      </div>
+      <a class="back-btn" href="index.html">返回首頁</a>
+    </header>
+
+    <section class="overview-grid">
+      <article class="card overview-card overview-card--main">
+        <p class="card-label">目前已選學分</p>
+        <div class="big-number-row">
+          <span id="selectedCredits">0</span>
+          <span class="slash">/</span>
+          <span id="maxCredits">25</span>
+          <span class="unit">學分</span>
+        </div>
+        <div class="progress">
+          <div class="progress__fill progress__fill--dark" id="creditProgressBar"></div>
+        </div>
+        <p class="hint">已選 <strong id="selectedCount">0</strong> 門課，尚可再選 <strong id="remainingCredits">25</strong> 學分</p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">衝堂狀態</p>
+        <h2 id="conflictStatus">無衝堂</h2>
+        <p class="small-text">系統自動檢查已選課程時間</p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">目前狀態</p>
+        <h2 id="creditStatus">正常</h2>
+        <p class="small-text">依學分上限顯示</p>
+      </article>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-head">
+        <div>
+          <p class="section-tag">Filter</p>
+          <h2>課程查詢</h2>
+        </div>
+      </div>
+
+      <div class="filters">
+        <label class="field">
+          <span>搜尋課名</span>
+          <input type="text" id="searchInput" placeholder="輸入課名關鍵字" />
+        </label>
+
+        <label class="field">
+          <span>分類</span>
+          <select id="categoryFilter">
+            <option value="全部">全部</option>
+            <option value="共同必修">共同必修</option>
+            <option value="專業必修">專業必修</option>
+            <option value="專業選修">專業選修</option>
+            <option value="共同選修">共同選修</option>
+            <option value="通識">通識</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>星期</span>
+          <select id="dayFilter">
+            <option value="全部">全部</option>
+            <option value="星期一">星期一</option>
+            <option value="星期二">星期二</option>
+            <option value="星期三">星期三</option>
+            <option value="星期四">星期四</option>
+            <option value="星期五">星期五</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Available Courses</p>
+            <h2>可選課程</h2>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>課名</th>
+                <th>學分</th>
+                <th>分類</th>
+                <th>星期</th>
+                <th>時間</th>
+                <th>教室</th>
+                <th>老師</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="availableTableBody"></tbody>
+          </table>
+        </div>
+
+        <p class="empty-text" id="availableEmpty">目前沒有符合條件的課程。</p>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">My Selection</p>
+            <h2>我的選課清單</h2>
+          </div>
+        </div>
+
+        <div class="selected-list" id="selectedList"></div>
+        <p class="empty-text" id="selectedEmpty">目前尚未加入任何課程。</p>
+      </section>
+    </section>
+
+    <section class="content-grid">
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Add Available Course</p>
+            <h2>手動新增開課資料</h2>
+          </div>
+        </div>
+
+        <form id="addCourseForm" class="course-form">
+          <div class="form-grid">
+            <label class="field">
+              <span>課名</span>
+              <input type="text" id="courseNameInput" placeholder="例如：財務管理" required />
+            </label>
+
+            <label class="field">
+              <span>學分</span>
+              <input type="number" id="creditsInput" min="1" step="1" placeholder="例如：3" required />
+            </label>
+
+            <label class="field">
+              <span>分類</span>
+              <select id="categoryInput" required>
+                <option value="">請選擇</option>
+                <option value="共同必修">共同必修</option>
+                <option value="專業必修">專業必修</option>
+                <option value="專業選修">專業選修</option>
+                <option value="共同選修">共同選修</option>
+                <option value="通識">通識</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>星期</span>
+              <select id="dayInput" required>
+                <option value="">請選擇</option>
+                <option value="星期一">星期一</option>
+                <option value="星期二">星期二</option>
+                <option value="星期三">星期三</option>
+                <option value="星期四">星期四</option>
+                <option value="星期五">星期五</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>開始時間</span>
+              <input type="time" id="startTimeInput" required />
+            </label>
+
+            <label class="field">
+              <span>結束時間</span>
+              <input type="time" id="endTimeInput" required />
+            </label>
+
+            <label class="field">
+              <span>教室</span>
+              <input type="text" id="roomInput" placeholder="例如：M201" required />
+            </label>
+
+            <label class="field">
+              <span>老師</span>
+              <input type="text" id="teacherInput" placeholder="例如：王老師" required />
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">新增開課資料</button>
+            <button type="button" class="ghost-btn" id="resetAvailableBtn">重設示範資料</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Batch Import</p>
+            <h2>批次匯入開課資料</h2>
+          </div>
+        </div>
+
+        <div class="import-box">
+          <p class="import-hint">
+            請依照
+            <strong>課名,學分,分類,星期,開始時間,結束時間,教室,老師</strong>
+            的格式，每行一筆資料。
+          </p>
+
+          <div class="import-example">
+            <p>範例：</p>
+            <pre>財務管理,3,專業必修,星期一,09:00,12:00,M201,王老師
+投資學,3,專業選修,星期二,10:00,12:00,B105,林老師
+英文聽講,2,共同選修,星期四,14:00,16:00,L401,李老師</pre>
+          </div>
+
+          <label class="field">
+            <span>貼上資料</span>
+            <textarea id="batchImportInput" rows="8" placeholder="請在這裡貼上多筆開課資料"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="button" class="primary-btn" id="importBtn">匯入資料</button>
+            <button type="button" class="ghost-btn" id="fillExampleBtn">帶入範例</button>
+            <button type="button" class="ghost-btn" id="clearImportBtn">清空內容</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-head">
+        <div>
+          <p class="section-tag">Alerts</p>
+          <h2>選課提醒</h2>
+        </div>
+      </div>
+
+      <ul class="alert-list" id="alertList"></ul>
+    </section>
+  </div>
+
+  <script src="course-selection.js"></script>
+</body>
+</html>

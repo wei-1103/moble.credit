@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>待辦事項</title>
+  <link rel="stylesheet" href="todo.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">To-do</p>
+        <h1>待辦事項</h1>
+        <p class="subtitle">整理課業、考試、門檻與日常安排，幫助你掌握目前要完成的事情。</p>
+      </div>
+      <a class="back-btn" href="index.html">返回首頁</a>
+    </header>
+
+    <section class="overview-grid">
+      <article class="card overview-card overview-card--main">
+        <p class="card-label">待辦總數</p>
+        <div class="big-number-row">
+          <span id="totalTodoCount">0</span>
+          <span class="unit">項</span>
+        </div>
+        <p class="hint">
+          已完成 <strong id="doneTodoCount">0</strong> 項，
+          尚有 <strong id="pendingTodoCount">0</strong> 項待完成
+        </p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">今天到期</p>
+        <h2 id="todayDueCount">0</h2>
+        <p class="small-text">今日需要特別注意的事項</p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">高優先</p>
+        <h2 id="highPriorityCount">0</h2>
+        <p class="small-text">建議優先處理的待辦</p>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Add Todo</p>
+            <h2>新增待辦</h2>
+          </div>
+        </div>
+
+        <form id="todoForm" class="todo-form">
+          <div class="form-grid">
+            <label class="field">
+              <span>事項名稱</span>
+              <input type="text" id="titleInput" placeholder="例如：準備統計期中考" required />
+            </label>
+
+            <label class="field">
+              <span>分類</span>
+              <select id="categoryInput" required>
+                <option value="">請選擇</option>
+                <option value="課業">課業</option>
+                <option value="考試">考試</option>
+                <option value="報告">報告</option>
+                <option value="畢業門檻">畢業門檻</option>
+                <option value="選課">選課</option>
+                <option value="其他">其他</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>優先順序</span>
+              <select id="priorityInput" required>
+                <option value="">請選擇</option>
+                <option value="高">高</option>
+                <option value="中">中</option>
+                <option value="低">低</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>截止日期</span>
+              <input type="date" id="dueDateInput" />
+            </label>
+
+            <label class="field field--full">
+              <span>備註</span>
+              <input type="text" id="noteInput" placeholder="例如：範圍第 1~5 章" />
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">新增待辦</button>
+            <button type="button" class="ghost-btn" id="resetDemoBtn">重設示範資料</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Batch Import</p>
+            <h2>批次匯入待辦</h2>
+          </div>
+        </div>
+
+        <div class="import-box">
+          <p class="import-hint">
+            請依照
+            <strong>事項名稱,分類,優先順序,截止日期,備註</strong>
+            的格式，每行一筆資料。
+          </p>
+
+          <div class="import-example">
+            <p>範例：</p>
+            <pre>準備統計期中考,考試,高,2026-04-10,範圍第1~5章
+繳交英文報告,報告,中,2026-04-15,上傳到教學平台
+確認英文門檻,畢業門檻,高,2026-05-01,查詢替代方案</pre>
+          </div>
+
+          <label class="field">
+            <span>貼上資料</span>
+            <textarea id="batchImportInput" rows="8" placeholder="請在這裡貼上多筆待辦資料"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="button" class="primary-btn" id="importBtn">匯入資料</button>
+            <button type="button" class="ghost-btn" id="fillExampleBtn">帶入範例</button>
+            <button type="button" class="ghost-btn" id="clearImportBtn">清空內容</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-head">
+        <div>
+          <p class="section-tag">Filter</p>
+          <h2>待辦查詢</h2>
+        </div>
+      </div>
+
+      <div class="filters">
+        <label class="field">
+          <span>搜尋事項</span>
+          <input type="text" id="searchInput" placeholder="輸入關鍵字" />
+        </label>
+
+        <label class="field">
+          <span>分類</span>
+          <select id="categoryFilter">
+            <option value="全部">全部</option>
+            <option value="課業">課業</option>
+            <option value="考試">考試</option>
+            <option value="報告">報告</option>
+            <option value="畢業門檻">畢業門檻</option>
+            <option value="選課">選課</option>
+            <option value="其他">其他</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>狀態</span>
+          <select id="statusFilter">
+            <option value="全部">全部</option>
+            <option value="未完成">未完成</option>
+            <option value="已完成">已完成</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>優先順序</span>
+          <select id="priorityFilter">
+            <option value="全部">全部</option>
+            <option value="高">高</option>
+            <option value="中">中</option>
+            <option value="低">低</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-head">
+        <div>
+          <p class="section-tag">Todo List</p>
+          <h2>待辦清單</h2>
+        </div>
+      </div>
+
+      <div class="todo-list" id="todoList"></div>
+      <p class="empty-text" id="emptyText">目前沒有符合條件的待辦事項。</p>
+    </section>
+  </div>
+
+  <script src="todo.js"></script>
+</body>
+</html>

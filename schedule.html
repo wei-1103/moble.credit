@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>課表</title>
+  <link rel="stylesheet" href="schedule.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Schedule</p>
+        <h1>課表</h1>
+        <p class="subtitle">查看今日課程與每週課表，快速掌握上課安排。</p>
+      </div>
+      <a class="back-btn" href="index.html">返回首頁</a>
+    </header>
+
+    <section class="overview-grid">
+      <article class="card overview-card overview-card--main">
+        <p class="card-label">今日課程數</p>
+        <div class="big-number-row">
+          <span id="todayCount">0</span>
+          <span class="unit">堂</span>
+        </div>
+        <p class="hint">今天是 <strong id="todayLabel">星期一</strong></p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">本週總課程</p>
+        <h2 id="weekCount">0</h2>
+        <p class="small-text">依目前課表資料統計</p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">最忙的一天</p>
+        <h2 id="busiestDay">-</h2>
+        <p class="small-text">依排課數量顯示</p>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Today</p>
+            <h2>今日課程</h2>
+          </div>
+        </div>
+        <div class="today-list" id="todayList"></div>
+        <p class="empty-text" id="todayEmpty">今天沒有安排課程。</p>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Add Class</p>
+            <h2>新增課程</h2>
+          </div>
+        </div>
+
+        <form id="classForm" class="class-form">
+          <div class="form-grid">
+            <label class="field">
+              <span>課名</span>
+              <input type="text" id="courseName" placeholder="例如：財務管理" required />
+            </label>
+
+            <label class="field">
+              <span>星期</span>
+              <select id="day" required>
+                <option value="">請選擇</option>
+                <option value="星期一">星期一</option>
+                <option value="星期二">星期二</option>
+                <option value="星期三">星期三</option>
+                <option value="星期四">星期四</option>
+                <option value="星期五">星期五</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>開始時間</span>
+              <input type="time" id="startTime" required />
+            </label>
+
+            <label class="field">
+              <span>結束時間</span>
+              <input type="time" id="endTime" required />
+            </label>
+
+            <label class="field">
+              <span>教室</span>
+              <input type="text" id="room" placeholder="例如：M201" required />
+            </label>
+
+            <label class="field">
+              <span>老師</span>
+              <input type="text" id="teacher" placeholder="例如：王老師" required />
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">新增課程</button>
+            <button type="button" class="ghost-btn" id="resetBtn">重設示範資料</button>
+          </div>
+        </form>
+      </section>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-head">
+        <div>
+          <p class="section-tag">Weekly View</p>
+          <h2>週課表</h2>
+        </div>
+
+        <label class="mini-filter">
+          <span>篩選星期</span>
+          <select id="dayFilter">
+            <option value="全部">全部</option>
+            <option value="星期一">星期一</option>
+            <option value="星期二">星期二</option>
+            <option value="星期三">星期三</option>
+            <option value="星期四">星期四</option>
+            <option value="星期五">星期五</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>星期</th>
+              <th>課名</th>
+              <th>時間</th>
+              <th>教室</th>
+              <th>老師</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleTableBody"></tbody>
+        </table>
+      </div>
+
+      <p class="empty-text" id="tableEmpty">目前沒有符合條件的課表資料。</p>
+    </section>
+  </div>
+
+  <script src="schedule.js"></script>
+</body>
+</html>

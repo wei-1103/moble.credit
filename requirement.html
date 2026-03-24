@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>畢業門檻</title>
+  <link rel="stylesheet" href="requirement.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Graduation Requirements</p>
+        <h1>畢業門檻</h1>
+        <p class="subtitle">整合英文能力、CPE、服務時數與證照條件，快速查看目前完成狀態。</p>
+      </div>
+      <a class="back-btn" href="index.html">返回首頁</a>
+    </header>
+
+    <!-- 總覽 -->
+    <section class="overview-grid">
+      <article class="card overview-card overview-card--main">
+        <p class="card-label">整體完成進度</p>
+        <div class="big-number-row">
+          <span id="doneCount">0</span>
+          <span class="slash">/</span>
+          <span id="totalCount">4</span>
+          <span class="unit">項</span>
+        </div>
+
+        <div class="progress">
+          <div class="progress__fill progress__fill--dark" id="overallProgressBar"></div>
+        </div>
+
+        <p class="hint">
+          目前完成率 <strong id="overallPercent">0%</strong>，
+          尚有 <strong id="remainingCount">4</strong> 項待完成
+        </p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">已完成門檻</p>
+        <h2 id="doneCountSmall">0</h2>
+        <p class="small-text">目前已符合畢業規定的項目</p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">待完成門檻</p>
+        <h2 id="pendingCountSmall">4</h2>
+        <p class="small-text">建議優先安排尚未完成項目</p>
+      </article>
+    </section>
+
+    <!-- 門檻狀態 -->
+    <section class="card section-card">
+      <div class="section-head">
+        <div>
+          <p class="section-tag">Requirement Status</p>
+          <h2>門檻狀態總覽</h2>
+        </div>
+      </div>
+
+      <div class="status-grid" id="statusGrid"></div>
+    </section>
+
+    <!-- 編輯區 -->
+    <section class="content-grid">
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Edit Progress</p>
+            <h2>更新目前狀態</h2>
+          </div>
+        </div>
+
+        <form id="requirementForm" class="requirement-form">
+          <div class="form-block">
+            <h3>英文門檻</h3>
+            <div class="form-grid">
+              <label class="field">
+                <span>完成狀態</span>
+                <select id="englishDone">
+                  <option value="false">未完成</option>
+                  <option value="true">已完成</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>方式</span>
+                <select id="englishMethod">
+                  <option value="未設定">未設定</option>
+                  <option value="TOEIC">TOEIC</option>
+                  <option value="GEPT">GEPT</option>
+                  <option value="校內測驗">校內測驗</option>
+                  <option value="修課替代">修課替代</option>
+                  <option value="其他">其他</option>
+                </select>
+              </label>
+
+              <label class="field field--full">
+                <span>備註</span>
+                <input type="text" id="englishNote" placeholder="例如：TOEIC 785 分" />
+              </label>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <h3>CPE 門檻</h3>
+            <div class="form-grid">
+              <label class="field">
+                <span>完成狀態</span>
+                <select id="cpeDone">
+                  <option value="false">未完成</option>
+                  <option value="true">已完成</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>目前題數 / 次數</span>
+                <input type="text" id="cpeNote" placeholder="例如：累積 2 題" />
+              </label>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <h3>服務時數</h3>
+            <div class="form-grid">
+              <label class="field">
+                <span>完成狀態</span>
+                <select id="hoursDone">
+                  <option value="false">未完成</option>
+                  <option value="true">已完成</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>目前時數</span>
+                <input type="text" id="hoursNote" placeholder="例如：尚差 10 小時" />
+              </label>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <h3>證照條件</h3>
+            <div class="form-grid">
+              <label class="field">
+                <span>完成狀態</span>
+                <select id="licenseDone">
+                  <option value="false">未完成</option>
+                  <option value="true">已完成</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>證照名稱</span>
+                <input type="text" id="licenseName" placeholder="例如：TQC Excel" />
+              </label>
+
+              <label class="field">
+                <span>取得日期</span>
+                <input type="date" id="licenseDate" />
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">儲存資料</button>
+            <button type="button" class="ghost-btn" id="resetBtn">重設示範資料</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Alerts</p>
+            <h2>門檻提醒</h2>
+          </div>
+        </div>
+
+        <ul class="alert-list" id="alertList"></ul>
+      </section>
+    </section>
+  </div>
+
+  <script src="requirement.js"></script>
+</body>
+</html>

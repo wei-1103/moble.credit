@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>學分儀表板 v3</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Desktop Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand__dot"></div>
+        <div>
+          <p class="sidebar-brand__sub">Student Dashboard</p>
+          <h2>Credit Flow</h2>
+        </div>
+      </div>
+
+     <nav class="sidebar-nav">
+        <a href="index.html" class="active">首頁</a>
+        <a href="credits.html">學分系統</a>
+        <a href="requirement.html">畢業門檻</a>
+        <a href="schedule.html">課表</a>
+        <a href="course-selection.html">選課</a>
+        <a href="grades.html">成績</a>
+        <a href="todo.html">待辦事項</a>
+</nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <header class="mobile-header">
+        <div>
+          <p class="term-text">114 學年度第 2 學期</p>
+          <h1>你好，王小明</h1>
+          <p class="sub-text">目前畢業進度 <span id="overallPercentText">67%</span></p>
+        </div>
+        <button class="circle-btn" aria-label="設定">⋯</button>
+      </header>
+
+      <!-- Hero -->
+      <section class="hero-card">
+        <div class="hero-top">
+          <div>
+            <p class="hero-label">畢業總進度</p>
+            <div class="hero-percent" id="overallPercent">67%</div>
+          </div>
+
+          <div class="hero-credit-box">
+            <div class="hero-credit-number">
+              <span id="earnedCredits">86</span>
+              <span class="slash">/</span>
+              <span id="totalCredits">128</span>
+            </div>
+            <p>已完成學分</p>
+          </div>
+        </div>
+
+        <div class="hero-progress">
+          <div class="hero-progress__fill" id="overallProgressBar"></div>
+        </div>
+
+        <div class="hero-bottom">
+          <div class="hero-bottom__left">
+            <span class="muted">距離畢業</span>
+            <strong>還差 <span id="remainingCredits">42</span> 學分</strong>
+          </div>
+          <span class="soft-pill">持續完成中</span>
+        </div>
+      </section>
+
+      <!-- Quick summary -->
+      <section class="summary-grid">
+        <article class="summary-card">
+          <p>本學期修課</p>
+          <h3>18 學分</h3>
+          <span>共 7 門課</span>
+        </article>
+
+        <article class="summary-card">
+          <p>畢業門檻</p>
+          <h3>2 / 4</h3>
+          <span>仍有項目待完成</span>
+        </article>
+      </section>
+
+      <!-- Credits -->
+      <section class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Credit Progress</p>
+            <h2>分類學分進度</h2>
+          </div>
+          <a href="#">詳細</a>
+        </div>
+
+        <div class="credit-list" id="creditList"></div>
+      </section>
+
+      <!-- Requirements -->
+      <section class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Requirements</p>
+            <h2>畢業門檻</h2>
+          </div>
+        </div>
+
+        <div class="requirement-grid" id="requirementGrid"></div>
+      </section>
+
+      <!-- Alerts -->
+      <section class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Alerts</p>
+            <h2>提醒事項</h2>
+          </div>
+        </div>
+
+        
+
+        <ul class="alert-list" id="alertList"></ul>
+      </section>
+
+      <!-- Actions -->
+      <section class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Quick Actions</p>
+            <h2>快速操作</h2>
+          </div>
+        </div>
+
+        <div class="action-grid">
+          <button class="action-card">
+            <span class="action-icon">＋</span>
+            <span>新增課程</span>
+          </button>
+          <button class="action-card">
+            <span class="action-icon">⌘</span>
+            <span>查看課表</span>
+          </button>
+          <button class="action-card">
+            <span class="action-icon">▣</span>
+            <span>查看成績</span>
+          </button>
+          <button class="action-card">
+            <span class="action-icon">↗</span>
+            <span>匯出檢核</span>
+          </button>
+        </div>
+      </section>
+
+      
+      <!-- Desktop split extra -->
+ 
+      <!-- Mobile nav -->
+      <nav class="mobile-nav">
+        <a href="#" class="active">首頁</a>
+        <a href="#">學分</a>
+        <a href="#">課表</a>
+        <a href="#">成績</a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

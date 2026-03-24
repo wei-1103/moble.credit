@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>成績</title>
+  <link rel="stylesheet" href="grades.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Grades</p>
+        <h1>成績系統</h1>
+        <p class="subtitle">整理歷年成績、查看平均分數與 GPA，快速掌握學習狀況。</p>
+      </div>
+      <a class="back-btn" href="index.html">返回首頁</a>
+    </header>
+
+    <section class="overview-grid">
+      <article class="card overview-card overview-card--main">
+        <p class="card-label">總平均成績</p>
+        <div class="big-number-row">
+          <span id="overallAverage">0.0</span>
+          <span class="unit">分</span>
+        </div>
+        <p class="hint">總 GPA：<strong id="overallGPA">0.00</strong></p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">已登錄課程</p>
+        <h2 id="courseCount">0</h2>
+        <p class="small-text">目前成績資料總數</p>
+      </article>
+
+      <article class="card overview-card">
+        <p class="card-label">本期篩選平均</p>
+        <h2 id="filteredAverage">0.0</h2>
+        <p class="small-text">依目前篩選條件顯示</p>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Add Grade</p>
+            <h2>新增成績</h2>
+          </div>
+        </div>
+
+        <form id="gradeForm" class="grade-form">
+          <div class="form-grid">
+            <label class="field">
+              <span>學期</span>
+              <input type="text" id="semesterInput" placeholder="例如：114-1" required />
+            </label>
+
+            <label class="field">
+              <span>課名</span>
+              <input type="text" id="courseNameInput" placeholder="例如：財務管理" required />
+            </label>
+
+            <label class="field">
+              <span>學分</span>
+              <input type="number" id="creditsInput" min="1" step="1" placeholder="例如：3" required />
+            </label>
+
+            <label class="field">
+              <span>成績</span>
+              <input type="number" id="scoreInput" min="0" max="100" step="1" placeholder="例如：85" required />
+            </label>
+
+            <label class="field">
+              <span>分類</span>
+              <select id="categoryInput" required>
+                <option value="">請選擇</option>
+                <option value="共同必修">共同必修</option>
+                <option value="專業必修">專業必修</option>
+                <option value="專業選修">專業選修</option>
+                <option value="共同選修">共同選修</option>
+                <option value="通識">通識</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">新增成績</button>
+            <button type="button" class="ghost-btn" id="resetDemoBtn">重設示範資料</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head">
+          <div>
+            <p class="section-tag">Batch Import</p>
+            <h2>批次匯入成績</h2>
+          </div>
+        </div>
+
+        <div class="import-box">
+          <p class="import-hint">
+            請依照
+            <strong>學期,課名,學分,成績,分類</strong>
+            的格式，每行一筆資料。
+          </p>
+
+          <div class="import-example">
+            <p>範例：</p>
+            <pre>113-1,微積分,3,88,共同必修
+113-1,程式設計,3,84,專業必修
+114-1,投資學,3,91,專業選修</pre>
+          </div>
+
+          <label class="field">
+            <span>貼上資料</span>
+            <textarea id="batchImportInput" rows="8" placeholder="請在這裡貼上多筆成績資料"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="button" class="primary-btn" id="importBtn">匯入資料</button>
+            <button type="button" class="ghost-btn" id="fillExampleBtn">帶入範例</button>
+            <button type="button" class="ghost-btn" id="clearImportBtn">清空內容</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-head">
+        <div>
+          <p class="section-tag">Filter</p>
+          <h2>成績查詢</h2>
+        </div>
+      </div>
+
+      <div class="filters">
+        <label class="field">
+          <span>搜尋課名</span>
+          <input type="text" id="searchInput" placeholder="輸入課名關鍵字" />
+        </label>
+
+        <label class="field">
+          <span>學期</span>
+          <select id="semesterFilter">
+            <option value="全部">全部</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>分類</span>
+          <select id="categoryFilter">
+            <option value="全部">全部</option>
+            <option value="共同必修">共同必修</option>
+            <option value="專業必修">專業必修</option>
+            <option value="專業選修">專業選修</option>
+            <option value="共同選修">共同選修</option>
+            <option value="通識">通識</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-head">
+        <div>
+          <p class="section-tag">Grade Records</p>
+          <h2>成績紀錄</h2>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>學期</th>
+              <th>課名</th>
+              <th>學分</th>
+              <th>成績</th>
+              <th>GPA</th>
+              <th>分類</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="gradeTableBody"></tbody>
+        </table>
+      </div>
+
+      <p class="empty-text" id="emptyText">目前沒有符合條件的成績資料。</p>
+    </section>
+  </div>
+
+  <script src="grades.js"></script>
+</body>
+</html>
