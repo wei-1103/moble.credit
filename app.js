@@ -409,33 +409,44 @@ nameInput.addEventListener("keypress", (e) => {
 });
 
 
-  const fabMenuBtn = document.getElementById("fabMenuBtn");
-  const iphoneMenu = document.getElementById("iphoneMenu");
-  const menuBackdrop = document.getElementById("menuBackdrop");
+ const fabMenuBtn = document.getElementById("fabMenuBtn");
+const iphoneMenu = document.getElementById("iphoneMenu");
+const menuBackdrop = document.getElementById("menuBackdrop");
 
-  function openMenu() {
-    iphoneMenu.classList.add("show");
-    menuBackdrop.classList.add("show");
-    fabMenuBtn.setAttribute("aria-expanded", "true");
+function openMenu() {
+  iphoneMenu.classList.add("show");
+  menuBackdrop.classList.add("show");
+  fabMenuBtn.setAttribute("aria-expanded", "true");
+}
+
+function closeMenu() {
+  iphoneMenu.classList.remove("show");
+  menuBackdrop.classList.remove("show");
+  fabMenuBtn.setAttribute("aria-expanded", "false");
+}
+
+function toggleMenu(e) {
+  e.stopPropagation();
+  if (iphoneMenu.classList.contains("show")) {
+    closeMenu();
+  } else {
+    openMenu();
   }
+}
 
-  function closeMenu() {
-    iphoneMenu.classList.remove("show");
-    menuBackdrop.classList.remove("show");
-    fabMenuBtn.setAttribute("aria-expanded", "false");
-  }
+fabMenuBtn.addEventListener("click", toggleMenu);
 
-  function toggleMenu() {
-    if (iphoneMenu.classList.contains("show")) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  }
+menuBackdrop.addEventListener("click", closeMenu);
 
-  fabMenuBtn.addEventListener("click", toggleMenu);
-  menuBackdrop.addEventListener("click", closeMenu);
+iphoneMenu.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
 
+document.querySelectorAll("#iphoneMenu a").forEach(link => {
+  link.addEventListener("click", () => {
+    closeMenu();
+  });
+});
 
 
 
