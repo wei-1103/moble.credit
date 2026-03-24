@@ -908,8 +908,8 @@ a {
 .fab-menu-btn {
   position: fixed;
 
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
 
   width: 48px;
   height: 48px;
@@ -937,29 +937,7 @@ a {
 }
 .fab-menu-btn {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-}
-.fab-menu-btn {
-  position: fixed;
-
-  top: 20px;
-  right: 20px;   /* 👉 關鍵：靠右 */
-
-  width: 48px;
-  height: 48px;
-
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid var(--line);
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-
+  top: 16px;
+  right: 16px;
   z-index: 9999;
 }
