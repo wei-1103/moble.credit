@@ -775,10 +775,7 @@ a {
   --line: rgba(148, 163, 184, 0.25);
 }
 
-/* 舊底部導覽隱藏 */
-.mobile-nav {
-  display: none !important;
-}
+
 
 :root {
   --text: #1f2937;
@@ -846,14 +843,19 @@ a {
   visibility: visible;
   pointer-events: auto;
 }
+.menu-backdrop {
+  background: rgba(0,0,0,0.05);
+  backdrop-filter: none;   /* 🔥 關掉模糊 */
+  -webkit-backdrop-filter: none;
+}
 
 /* 右上角展開選單 */
 .iphone-menu {
   position: fixed;
   top: 146px;
   right: 20px;
-  width: 220px;
-  max-height: 60vh;
+  width: 200px;
+  max-height: 50vh;
   overflow-y: auto;
   overflow-x: hidden;
 
